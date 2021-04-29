@@ -7,7 +7,7 @@ public class Recognizer {
         Graph graph = new Graph();
         boolean answer=false;
         if (numOfCurrState == length) {
-            return current==8;
+            return current==56;
         } else {
             Character i1 = symbolsLane.charAt(numOfCurrState);
             for (int i = 0; i < graph.getSize(); i++) {

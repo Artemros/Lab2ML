@@ -41,14 +41,13 @@ public class App {
                         System.out.println("Generated phone number:" + stringToCheck);
                         System.out.println("Did recognizer recognized generated phone number:" + recognizer.nextState(stringToCheck.length(), 0, stringToCheck, 1));
                     } else if (answer == 1) {
-                        int length = 0;
                         System.out.println("Enter phone number:");
                         String sequence = in.nextLine();
                         sequence = StringUtils.substringBefore(sequence, " ");
                         if (sequence.length() < 9 || sequence.length() > 19) {
                             System.out.println("Phone number cant be shorter than 9 symbols or longer than 19 symbols.");
                         } else if (sequence.length() >= 9 && sequence.length() <= 19) {
-                            if (recognizer.nextState(length, 0, sequence, 6)) {
+                            if (recognizer.nextState(sequence.length(), 0, sequence, 1)) {
                                 System.out.println("Your sequence belongs to this language");
                             } else {
                                 System.out.println("Your sequence do not belong to this to this language");
