@@ -1,20 +1,26 @@
 package org.example;
 
+import java.util.Set;
+
 public class Recognizer {
-    private Integer[] states = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
 
     boolean nextState(int length, int numOfCurrState, String symbolsLane, int current) {
         Graph graph = new Graph();
-        boolean answer=false;
+        boolean answer = false;
         if (numOfCurrState == length) {
-            return current==56;
+            if(current == 38 || current==42 || current == 43 || current == 44 || current == 45 || current == 46 || current==47){
+                answer=true;
+            }
         } else {
             Character i1 = symbolsLane.charAt(numOfCurrState);
             for (int i = 0; i < graph.getSize(); i++) {
-                for (int j = 0; j < graph.vertices.get(i).getSize(); j++) {
-                    int begin = graph.vertices.get(i).edges.get(j).getBegin();
-                    boolean contains = graph.vertices.get(i).edges.get(j).getState().contains(i1);
-                    if (begin == current) {
+                int begin = graph.vertices.get(i).edges.get(0).getBegin();
+                if (begin == current) {
+                    for (int j = 0; j < graph.vertices.get(i).getSize(); j++) {
+                        int end = graph.vertices.get(i).edges.get(j).getEnd();
+                        Character character = symbolsLane.charAt(numOfCurrState);
+                        Set<Character> st = graph.vertices.get(i).edges.get(j).getState();
+                        boolean contains = graph.vertices.get(i).edges.get(j).getState().contains(i1);
                         if (contains) {
                             answer = nextState(length, numOfCurrState + 1, symbolsLane, graph.vertices.get(i).edges.get(j).getEnd());
                         }
