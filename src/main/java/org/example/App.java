@@ -45,7 +45,7 @@ public class App {
                     if (answer == 0) {
                         String stringToCheck = generator.generate();
                         System.out.println("Generated phone number:" + stringToCheck);
-                        if (recognizer.nextState(stringToCheck.length(), 0, stringToCheck, 1) ) {
+                        if (recognizer.nextState(stringToCheck.length(), 0, stringToCheck, 1)==1 ) {
                             System.out.println("Recognizer recognized generated phone number");
                         } else {
                             System.out.println("Something went wrong");
@@ -59,17 +59,21 @@ public class App {
                             System.out.println("Phone number cant be shorter than 9 symbols or longer than 19 symbols.");
                         } else if (sequence.length() >= 9 && sequence.length() <= 19) {
                             boolean flag = true;
-                            for (int i = 0; i < sequence.length(); i++) {
-                                if (!intSymbols.contains(sequence.charAt(i)) && !plus.contains(sequence.charAt(i)) && !left.contains(sequence.charAt(i)) && !right.contains(sequence.charAt(i)) && !between.contains(sequence.charAt(i))) {
-                                    System.out.println("Your sequence have characters not from your language");
-                                    flag = false;
-                                }
-                            }
+//                            for (int i = 0; i < sequence.length(); i++) {
+//                                if (!intSymbols.contains(sequence.charAt(i)) && !plus.contains(sequence.charAt(i)) && !left.contains(sequence.charAt(i)) && !right.contains(sequence.charAt(i)) && !between.contains(sequence.charAt(i))) {
+//                                    System.out.println("Your sequence have characters not from your language");
+//                                    flag = false;
+//                                }
+//                            }
                             if (flag) {
-                                if (recognizer.nextState(sequence.length(), 0, sequence, 1)) {
-                                    System.out.println("Your sequence belongs to this language");
-                                } else {
-                                    System.out.println("Your sequence do not belong to this to this language");
+                                if (recognizer.nextState(sequence.length(), 0, sequence, 1)==1) {
+                                    System.out.println("Your sequence was recognized");
+                                } else if(recognizer.nextState(sequence.length(), 0, sequence, 1)==0){
+                                    System.out.println("Your sequence was not recognized");
+                                } else if(recognizer.nextState(sequence.length(), 0, sequence, 1)==-1){
+                                    System.out.println("Your sequence have characters not from your language");
+                                } else{
+                                    System.out.println("SMTH WENT WRONG");
                                 }
                             }
                         }
